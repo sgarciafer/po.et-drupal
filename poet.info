@@ -2,4 +2,5 @@ name = Poet
 description = Poet integration module, for more info see https://po.et
 core = 7.x
 package = Other
+files[] = poet.class.inc
 files[] = poet.admin.inc
