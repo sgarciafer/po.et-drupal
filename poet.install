@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Implements hook_install()
+ **/
+function poet_install() {
+
+}
+
+/**
+ * Implements hook_uninstall()
+ **/
+function poet_uninstall() {
+
+}
+
+/**
+ * Implement hook_schema
+ **/
+function poet_schema() {
+ $schema['poet'] = array(
+   'description' => 'Local register of poet registered nodes.',
+   'fields' => array(
+     'nid' => array(
+       'description' => 'The primary identifier for a node.',
+       'type' => 'serial',
+       'unsigned' => TRUE,
+       'not null' => TRUE,
+     ),
+     'hash' => array(
+       'description' => 'The hash used to identify this node on the blockchain.',
+       'type' => 'varchar',
+       'length' => 256,
+       'not null' => TRUE,
+       'default' => '',
+     ),
+     'timestamp' => array(
+       'description' => 'Time of the submission to Poet',
+       'type' => 'int',
+       'not null' => TRUE,
+     ),
+   ),
+   'unique keys' => array(
+    'hash' => array('hash'),
+   ),
+   'primary key' => array('nid'),
+ );
+ return $schema;
+}

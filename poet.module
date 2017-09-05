@@ -26,6 +26,7 @@ function poet_menu() {
     'page callback'    => 'drupal_get_form',
     'page arguments'   => array('poet_settings_callback'),
     'access arguments' => ['administer Poet'],
+    'file' => 'poet.admin.inc',
   ];
 
   return $items;
@@ -43,31 +44,26 @@ function poet_permission() {
   );
 }
 
-
 /**
- * Callback for the admin settings page of Po.et
+ * Implements hook_form_FORM_ID_alter.
  **/
-function poet_settings_callback(){
-  $form = array();
+function poet_form_node_type_form_alter(&$form, &$form_state) {
+  drupal_set_message(variable_get('poet_' . $form['#node']->type, 1));
+    // Define field set in additional settings group
+    $form['advanced'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Proof of Existence (Poet)'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#weight' => 10,
+      '#group' => 'additional_settings',
+    );
+    // Add checkbox option
+    $form['advanced']['poet'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Enable blockchain timestamp'),
+    );
+    // Set default value from automatically saved config variable
+    $form['advanced']['poet']['#default_value'] = variable_get('poet_' . $form['#node']->type, 1);
 
-  $form['poet_pubkey'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Public Key'),
-    '#default_value' => variable_get('poet_pubkey',''),
-    '#size' => 128,
-    '#maxlength' => 128,
-    '#required' => TRUE,
-  );
-
-  $form['poet_privkey'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Private Key'),
-    '#description' => t('This is Po.et private key used to sign your data. Keep it secret.'),
-    '#default_value' => variable_get('poet_privkey',''),
-    '#size' => 128,
-    '#maxlength' => 128,
-    '#required' => TRUE,
-  );
-
-  return system_settings_form($form);
 }
