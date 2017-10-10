@@ -1,0 +1,5 @@
+{
+    "require": {
+        "bitcoin-php/bitcoin-ecdsa": "^1.3"
+    }
+}

@@ -48,6 +48,7 @@ function poet_permission() {
  * Implements hook_form_FORM_ID_alter.
  **/
 function poet_form_node_type_form_alter(&$form, &$form_state) {
+  $test = new Poet();
   drupal_set_message(variable_get('poet_' . $form['#node']->type, 1));
     // Define field set in additional settings group
     $form['advanced'] = array(

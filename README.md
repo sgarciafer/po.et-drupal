@@ -8,7 +8,18 @@ Rules and actions are also planned.
 
 Install
 =======
-Install the module as any other Drupal module.
+This module requires the GMP PHP Math library.
+To install it:
+
+apt-get install php-gmp
+
+Or for PHP5
+apt-get install php5-gmp
+
+Check the php.ini has
+extension=php_gmp.so
+
+Then install the module as any other Drupal module.
 
 Configuration
 =============
@@ -16,4 +27,3 @@ Register at po.et and paste the private and public keuys on the administration p
 /admin/config/poet/API
 
 For more details about this module contact: info@cubeinspire.com
-
